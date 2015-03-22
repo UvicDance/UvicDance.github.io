@@ -1,0 +1,5 @@
+/*!CK:690405507!*//*1417408006,*/
+
+if (self.CavalryLogger) { CavalryLogger.start_js(["FgFtW"]); }
+
+__d("MercuryShareAttachment.react",["Map","MercuryShareAttachmentReactShape","MercuryShareAttachmentRenderLocations","React","StoryAttachmentStyle","MercuryFallbackShareAttachment.react"],function(a,b,c,d,e,f,g,h,i,j,k){'use strict';var l=new g();l.set(k.FALLBACK,b('MercuryFallbackShareAttachment.react'));var m=j.createClass({displayName:"MercuryShareAttachment",propTypes:{attachment:h(),location:j.PropTypes.oneOf(i.getValues())},render:function(){var n=this.props.attachment;if(!n.style_list)return null;var o=null;for(var p=0;p<n.style_list.length;p++){o=l.get(n.style_list[p]);if(o)break;}if(!o)return null;return (j.createElement(o,{attachment:n,location:this.props.location}));}});e.exports=m;},null);
