@@ -150,7 +150,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-focus');
 
-  grunt.registerTask('serve', ['connect', 'focus:serve']);
+  grunt.registerTask('serve', ['sass', 'connect', 'focus:serve']);
 
   grunt.registerTask('default', ['clean', 'sass', 'uglify', 'cssmin', 'copy']);
 };
