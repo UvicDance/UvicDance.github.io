@@ -8,7 +8,7 @@ Licence URI: http://www.os-templates.com/template-terms
 File: Layout CSS
 */
 
-@import url("../scripts/supersized/supersized.custom.css");
+@import url("../js/supersized/supersized.custom.css");
 @import url("fontawesome-3.2.1.min.css");
 @import url("framework.css");
 
@@ -58,6 +58,20 @@ File: Layout CSS
 #comments time{font-size:smaller;}
 #comments .comcont{display:block; margin:0; padding:0;}
 #comments .comcont p{margin:10px 5px 10px 0; padding:0;}
+
+.comment {
+  margin: 0 0 40px 0;
+  padding: 15px;
+  color: inherit;
+  background-color: #FFF;
+  overflow: auto;
+  img {
+    float: right;
+    margin:0 0 10px 10px;
+    padding: 3px;
+    border: 1px solid #AAA;
+  }
+}
 
 /* Sidebar */
 #container .sidebar{}

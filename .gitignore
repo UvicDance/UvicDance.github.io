@@ -1,0 +1,8 @@
+**/~*
+**/*~
+**/_*
+**/.DS_Store
+.idea/**
+.sass_cache/**
+node_modules/**
+dest/**
