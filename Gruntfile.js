@@ -19,6 +19,9 @@ module.exports = function(grunt) {
       },
     },
     cssmin: {
+      options: {
+        processImport: false
+      },
       build: {
         files: [{
           expand: true,
