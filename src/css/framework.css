@@ -216,3 +216,12 @@ address, article, aside, figcaption, figure, footer, header, main, nav, section 
 
 .pad80 {
   padding: 80px; }
+
+/* -----------
+Header sizing
+----------- */
+h2 {
+  font-size: 300%; }
+
+h3 {
+  font-size: 200%; }
