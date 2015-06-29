@@ -1,5 +1,0 @@
-/*!CK:605743850!*//*1417408745,*/
-
-if (self.CavalryLogger) { CavalryLogger.start_js(["OtzpP"]); }
-
-__d("getCharacterRemovalRangeExperimental",["ComposedEntityMutability","DocumentEntity","DocumentEntitySegmentsExperimental","checkRangeOverlap","getRangesForDocumentEntityExperimental","invariant"],function(a,b,c,d,e,f,g,h,i,j,k,l){var m=g.MUTABLE,n=g.IMMUTABLE;function o(p,q,r){var s=q.getStartOffset(),t=q.getEndOffset(),u=p.getEntities(),v=u.get(s);if(!v)return q;var w=h.get(v),x=w.getMutability();if(x===m)return q;var y=k(u,v).filter(function(ba){return j(s,t,ba.start,ba.end);});l(y.length==1);var z=y[0];if(x===n)return q.merge({anchorOffset:z.start,focusOffset:z.end,isBackward:false});var aa=i.getRemovalRange(s,t,p.getText().slice(z.start,z.end),z.start,r);return q.merge({anchorOffset:aa.start,focusOffset:aa.end,isBackward:false});}e.exports=o;},null);
