@@ -220,9 +220,9 @@ label span{color:#FF0000; background-color:inherit;}
 
 /* Navigation */
 #mainav li a{color:#333333; background-color:inherit;}
-#mainav .active a, #mainav a:hover, #mainav li:hover > a{color:#FFFFFF; background-color:#56AED4;}
+#mainav .active a, #mainav a:hover, #mainav li:hover > a{color:#FFFFFF; background-color:#777;}
 #mainav li li a, #mainav .active li a{color:#FFFFFF; background-color:rgba(0,0,0,.6); border-color:rgba(0,0,0,.6);}
-#mainav li li:hover > a, #mainav .active .active > a{color:#FFFFFF; background-color:#56AED4;}
+#mainav li li:hover > a, #mainav .active .active > a{color:#FFFFFF; background-color:#444;}
 
 #breadcrumb a{}
 #breadcrumb li:last-child a{}
