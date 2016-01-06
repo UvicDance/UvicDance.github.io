@@ -29,6 +29,11 @@ File: Layout CSS
 #logo *{margin:0; padding:0;}
 #logo h1{font-size:42px;}
 
+.banner {
+  width: 1000px;
+  margin-bottom: 20px;
+}
+
 
 /* Full Width Homepage Slider
 ---------------------------------------------------------------------------------------------------------------------------------------*/
@@ -79,7 +84,17 @@ File: Layout CSS
   padding: 3px;
 }
 
+.schedule thead th:first-child {
+  width:113px;
+}
 
+.schedule thead th:nth-child(2) {
+  width:433px;
+}
+
+.schedule thead th:nth-child(3) {
+  width:433px;
+}
 
 /* Sidebar */
 #container .sidebar{}
