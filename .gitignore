@@ -5,5 +5,4 @@
 .idea/**
 .sass_cache/**
 node_modules/**
-dist/**
-tmp/**
+dev/**
