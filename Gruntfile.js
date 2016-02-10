@@ -11,14 +11,11 @@ module.exports = function(grunt) {
           sizes: [{
             selector: '.portrait',
             sizeList: [{
-              cond: 'max-width: 30em',
+              cond: 'max-width: 32em',
               size: '100vw'
             },{
-              cond: 'max-width: 50em',
-              size: '50vw'
-            },{
               cond: 'default',
-              size: '30vw'
+              size: '10em'
             }]
           }]
         },
@@ -27,6 +24,47 @@ module.exports = function(grunt) {
           cwd: 'dev/',
           src: ['**/*.{html,htm,php}'],
           dest: 'dev/'
+        }]
+      }
+    },
+    responsive_images: {
+      options: {
+        engine: "im"
+      },
+      portraits: {
+        options: {
+          sizes: [{
+            width: 200
+          },{
+            width: 400
+          },{
+            width: 800
+          }]
+        },
+        files: [{
+          expand: true,
+          cwd: 'src/images/portraits/',
+          src: ['*.jpg'],
+          dest: 'dev/images/portraits/'
+        }]
+      },
+      banners: {
+        options: {
+          sizes: [{
+            width: 500
+          },{
+            width: 1000
+          },{
+            width: 2000
+          },{
+            width: 3000
+          }]
+        },
+        files: [{
+          expand: true,
+          cwd: 'src/images/banners/',
+          src: ['*.jpg'],
+          dest: 'dev/images/banners/'
         }]
       }
     },
@@ -56,44 +94,13 @@ module.exports = function(grunt) {
         src: 'css/*.css'
       }
     },
-    responsive_images: {
-      options: {
-        engine: "im"
-      },
-      portraits: {
-        options: {
-          sizes: [{
-            width: 200
-          },{
-            width: 400
-          },{
-            width: 800
-          }]
-        },
+    processhtml: {
+      dev: {
         files: [{
           expand: true,
-          src: ['*.jpg'],
-          cwd: 'src/images/portraits/',
-          dest: 'dev/images/portraits/'
-        }]
-      },
-      banners: {
-        options: {
-          sizes: [{
-            width: 500
-          },{
-            width: 1000
-          },{
-            width: 2000
-          },{
-            width: 3000
-          }]
-        },
-        files: [{
-          expand: true,
-          src: ['*.jpg'],
-          cwd: 'src/images/banners/',
-          dest: 'dev/images/banners/'
+          cwd: 'src',
+          src: ['**/*.html', '!templates/**/*.html'],
+          dest: 'dev/'
         }]
       }
     },
@@ -140,8 +147,7 @@ module.exports = function(grunt) {
           expand: true,
           cwd: 'src/js/',
           src: ['*.js'],
-          dest: 'dev/js/',
-          filter: 'isFile'
+          dest: 'dev/js/'
         }]
       },
       images: {
@@ -149,17 +155,7 @@ module.exports = function(grunt) {
           expand: true,
           cwd: 'src/images/',
           src: ['**/*.{jpg,png,gif}', '!portraits/*.jpg', '!banners/*.jpg'],
-          dest: 'dev/images/',
-          filter: 'isFile'
-        }]
-      },
-      html: {
-        files: [{
-          expand: true,
-          cwd: 'src/',
-          src: ['*.html'],
-          dest: 'dev/',
-          filter: 'isFile'
+          dest: 'dev/images/'
         }]
       },
       css: {
@@ -167,47 +163,36 @@ module.exports = function(grunt) {
           expand: true,
           cwd: 'dev/css/',
           src: ['*.{css,css.map}'],
-          dest: 'css/',
-          filter: 'isFile'
+          dest: 'css/'
         }]
       }
     },
     watch: {
       css: {
         files: ['src/scss/*.scss'],
-        tasks: ['sass', 'postcss']
+        tasks: ['newer:sass:dev']
       },
       html: {
-        files: ['src/**/*.html'],
-        tasks: ['copy:html', 'responsive_images_extender:dev']
+        files: ['src/*.html', 'src/templates/*.html'],
+        tasks: ['newer:processhtml:dev', 
+          'newer:responsive_images_extender:dev']
       },
       js: {
         files: ['src/js/*.js'],
-        tasks: ['copy:js']
-      },
-      images_portraits: {
-        files: ['src/images/portraits/*.{jpg,png}'],
-        tasks: ['responsive_images:portraits']
-      },
-      images_banners: {
-        files: ['src/images/banners/*.{jpg,png}'],
-        tasks: ['responsive_images:banners']
+        tasks: ['newer:copy:js']
       },
       images: {
-        files: ['src/images/**', 
-          '!src/images/portraits/*.{jpg,png}', 
-          '!src/images/banner/s*.{jpg,png}'],
-        tasks: ['copy:images']
+        files: ['src/images/**/*.{jpg,png,gif}'],
+        tasks: ['newer:copy:images', 
+          'newer:responsive_images:portraits', 
+          'newer:responsive_images:banners',
+          'processhtml:dev',
+          'responsive_images_extender:dev']
       }
     },
-    concurrent: {
+    focus: { // Run multiple watch tasks
       dev: {
-        tasks: ["watch:css", 
-          "watch:html", 
-          "watch:js",
-          "watch:images_portraits", 
-          "watch:images_banners",
-          "watch:images"],
+        include: ['css','html','js','images']
       }
     }
   });
@@ -217,20 +202,24 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-htmlmin');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-imagemin');
+	grunt.loadNpmTasks('grunt-processhtml');
 	grunt.loadNpmTasks('grunt-sass');
 	grunt.loadNpmTasks('grunt-postcss');
-	grunt.loadNpmTasks('grunt-concurrent');
 	grunt.loadNpmTasks('grunt-responsive-images');
 	grunt.loadNpmTasks('grunt-responsive-images-extender');
 	
-	grunt.registerTask('dev', ['clean:dev',
-	  'copy:html', 
-	  'copy:js', 
-	  'copy:images',
-	  'sass:dev',
-	  'responsive_images:portraits',
-	  'responsive_images:banners',
-	  'responsive_images_extender:dev']);
+	grunt.loadNpmTasks('grunt-focus');
+	
+	grunt.loadNpmTasks('grunt-newer');
+	
+	grunt.registerTask('dev', [
+	  'newer:copy:js', 
+	  'newer:copy:images',
+	  'newer:sass:dev',
+	  'newer:responsive_images:portraits',
+	  'newer:responsive_images:banners',
+	  'newer:processhtml:dev', 
+	  'newer:responsive_images_extender:dev']);
 	  
   //dist, maybe
   grunt.registerTask('prod', ['clean:prod',
@@ -241,6 +230,6 @@ module.exports = function(grunt) {
 	  'copy:css',
 	  'postcss:prod']);
 	  
-	grunt.registerTask('default', ['dev', 'concurrent:dev']);
+	grunt.registerTask('default', ['dev', 'focus:dev']);
 }
 
