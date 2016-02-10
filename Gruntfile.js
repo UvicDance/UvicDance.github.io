@@ -12,7 +12,7 @@ module.exports = function(grunt) {
             selector: '.portrait',
             sizeList: [{
               cond: 'max-width: 32em',
-              size: '100vw'
+              size: '6em'
             },{
               cond: 'default',
               size: '10em'
@@ -219,7 +219,7 @@ module.exports = function(grunt) {
 	  'newer:responsive_images:portraits',
 	  'newer:responsive_images:banners',
 	  'newer:processhtml:dev', 
-	  'newer:responsive_images_extender:dev']);
+	  'responsive_images_extender:dev']);
 	  
   //dist, maybe
   grunt.registerTask('prod', ['clean:prod',
