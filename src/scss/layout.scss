@@ -66,30 +66,50 @@ body nav {
   
   background-color: white;
   
+  @include clearfix;
+  
   ul {
     list-style: none;
     text-align: center;
+	  list-style-type:none;
+	  margin:0;
+	  padding:0;
+	  position: relative;
+	  
+	  @include clearfix;
   }
  
   li {
-    display: inline-block;
+    display:inline-block;
+    position: relative;
+	  margin-right: 1px;
+	  
+	  @include clearfix;
+  }
+  
+  li a {
+    padding: 1em 1.5em;
+  }
+  
+  li ul {
+	  display: none;
+	  position: absolute;
   }
 
-  a {
-    display: block;
-    padding: 1em 1.5em;
-    text-decoration: none;
-    color: #333;
-    background-color: white;
-    
-    @media screen and (max-width: $medium-large) {
-      padding: 1em 0.5em;
-    }
-    
-    &:hover {
-      color: white;
-      background-color: #777;
-    }
+  /*Make dropdown links vertical*/
+  li ul li {
+	  display: block;
+	  float: none;
+  }
+  
+  li ul li a {
+	  width: auto;
+	  min-width: 100px;
+	  padding: 0 20px;
+  }
+  
+  ul li a:hover + .hidden, .hidden:hover {
+	  display: block;
   }
 }
 

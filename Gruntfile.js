@@ -170,11 +170,14 @@ module.exports = function(grunt) {
     watch: {
       css: {
         files: ['src/scss/*.scss'],
-        tasks: ['newer:sass:dev']
+        tasks: ['newer:sass:dev'],
+        options: {
+          spawn: false,
+        },
       },
       html: {
         files: ['src/*.html', 'src/templates/*.html'],
-        tasks: ['newer:processhtml:dev', 
+        tasks: ['processhtml:dev', 
           'newer:responsive_images_extender:dev']
       },
       js: {
@@ -218,7 +221,7 @@ module.exports = function(grunt) {
 	  'newer:sass:dev',
 	  'newer:responsive_images:portraits',
 	  'newer:responsive_images:banners',
-	  'newer:processhtml:dev', 
+	  'processhtml:dev', 
 	  'responsive_images_extender:dev']);
 	  
   //dist, maybe
